@@ -1,0 +1,29 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        version: [18, 20]
+        pnpm: [8, latest]
+    runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          version: ${{ matrix.pnpm }}
+      - uses: pnpm/action-setup@v2.4.0
+        with:
+          version: 8.10.5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --prefer-offline --frozen-lockfile
+      - run: pnpm run ci

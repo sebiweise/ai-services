@@ -2,6 +2,8 @@
   "name": "ai-services",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "ci": "turbo run build lint",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
