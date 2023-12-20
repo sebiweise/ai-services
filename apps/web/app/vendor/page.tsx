@@ -1,18 +1,16 @@
 import { Vendor } from "@prisma/client";
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
-import prisma from '@/lib/prisma';
 
 async function getData(): Promise<Vendor[]> {
-    const vendors = await prisma.vendor.findMany({
-        include: {
-            _count: {
-                select: { models: true },
-            },
-        },
-    });
+    const res = await fetch('/api/vendors', { cache: 'force-cache' });
 
-    return vendors;
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data')
+    }
+
+    return res.json();
 }
 
 export default async function VendorPage() {
