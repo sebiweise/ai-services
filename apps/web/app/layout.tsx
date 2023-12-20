@@ -1,4 +1,4 @@
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider, UserButton } from '@clerk/nextjs'
 
 import type { Metadata } from 'next'
 import "@/styles/globals.css"
@@ -9,6 +9,8 @@ import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from "@/components/ui/toaster"
 
 import { cn } from "@/lib/utils"
+import { MainNav } from '@/components/main-nav';
+import { Search } from '@/components/search';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +35,19 @@ export default function RootLayout({
             "min-h-screen bg-background font-sans antialiased",
             inter.variable
           )}>
-          {children}
+          <div className="border-b">
+            <div className="flex h-16 items-center px-4">
+              <MainNav className="mx-6" />
+              <div className="ml-auto flex items-center space-x-4">
+                <Search />
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 space-y-4 p-8 pt-6">
+            {children}
+          </div>
+
           <Toaster />
           <Analytics />
         </body>

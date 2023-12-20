@@ -17,7 +17,8 @@ model Model {
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
   params    Json?
-  type      String
+  type      String   @default("text")
+  status    Int      @default(0)
   vendor    Vendor?  @relation(fields: [vendorId], references: [id])
   vendorId  Int?
 
@@ -27,6 +28,7 @@ model Model {
 model Vendor {
   id        Int      @id @default(autoincrement())
   name      String   @unique
+  status    Int      @default(0)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
   models    Model[]
