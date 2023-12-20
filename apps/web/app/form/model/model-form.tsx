@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
+import { Vendor } from "@prisma/client"
 
 const modelFormSchema = z.object({
     name: z
@@ -43,11 +44,10 @@ type ModelFormValues = z.infer<typeof modelFormSchema>
 
 // This can come from your database or API.
 const defaultValues: Partial<ModelFormValues> = {
-    vendor: "OpenAI",
     params: "{\"maxLength\": 12000, \"tokenLimit\": 4000, \"requestLimit\": 3000}",
 }
 
-export function ModelForm() {
+export function ModelForm({ vendors }: { vendors: Vendor[] }) {
     const form = useForm<ModelFormValues>({
         resolver: zodResolver(modelFormSchema),
         defaultValues,
@@ -90,18 +90,16 @@ export function ModelForm() {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Vendor</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select onValueChange={field.onChange}>
                                 <FormControl>
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select a verified email to display" />
+                                        <SelectValue placeholder="Select a AI model vendor" />
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    <SelectItem value="OpenAI">OpenAI</SelectItem>
-                                    <SelectItem value="Azure">Azure</SelectItem>
-                                    <SelectItem value="Anthropic">Anthropic</SelectItem>
-                                    <SelectItem value="Google">Google</SelectItem>
-                                    <SelectItem value="Ollama">Ollama</SelectItem>
+                                    {vendors.map((vendor) => (
+                                        <SelectItem key={vendor.id} value={vendor.id.toString()}>{vendor.name}</SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                             <FormDescription>
