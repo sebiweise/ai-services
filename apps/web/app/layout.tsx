@@ -6,6 +6,8 @@ import { Inter } from "next/font/google"
 
 import { Analytics } from '@vercel/analytics/react';
 
+import { Toaster } from "@/components/ui/toaster"
+
 import { cn } from "@/lib/utils"
 
 const inter = Inter({
@@ -32,6 +34,7 @@ export default function RootLayout({
             inter.variable
           )}>
           {children}
+          <Toaster />
           <Analytics />
         </body>
       </html>
