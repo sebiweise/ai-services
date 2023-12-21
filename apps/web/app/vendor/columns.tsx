@@ -16,6 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { DataTableColumnHeader } from "@/components/shared/data-table-column-header"
 
 import { Vendor } from "@prisma/client";
+import { SignedIn } from "@clerk/nextjs"
 
 export const columns: ColumnDef<Vendor>[] = [
     {
@@ -83,8 +84,14 @@ export const columns: ColumnDef<Vendor>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <SignedIn>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                            <DropdownMenuItem>Delete</DropdownMenuItem>
+                        </SignedIn>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>View models</DropdownMenuItem>
+                        <DropdownMenuItem>View vendor</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

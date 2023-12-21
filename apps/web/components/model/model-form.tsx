@@ -26,6 +26,7 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import { Vendor } from "@prisma/client"
+import { useEffect, useState } from "react"
 
 const modelFormSchema = z.object({
     name: z
@@ -47,7 +48,9 @@ const defaultValues: Partial<ModelFormValues> = {
     params: "{\"maxLength\": 12000, \"tokenLimit\": 4000, \"requestLimit\": 3000}",
 }
 
-export function ModelForm({ vendors }: { vendors: Vendor[] }) {
+export function ModelForm() {
+    const [vendors, setVendors] = useState<Vendor[]>([])
+
     const form = useForm<ModelFormValues>({
         resolver: zodResolver(modelFormSchema),
         defaultValues,
@@ -64,6 +67,14 @@ export function ModelForm({ vendors }: { vendors: Vendor[] }) {
             ),
         })
     }
+
+    useEffect(() => {
+        fetch('/api/vendors')
+            .then((res) => res.json())
+            .then((data) => {
+                setVendors(data)
+            })
+    }, [])
 
     return (
         <Form {...form}>

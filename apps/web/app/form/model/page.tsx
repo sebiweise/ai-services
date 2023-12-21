@@ -1,19 +1,7 @@
 import { Separator } from "@/components/ui/separator"
-import { ModelForm } from "./model-form"
-import prisma from '@/lib/prisma';
-import { Vendor } from "@prisma/client"
-
-async function getData(): Promise<Vendor[]> {
-    const vendors = await prisma.vendor.findMany({
-        where: { status: 1 }
-    });
-
-    return vendors;
-}
+import { ModelForm } from "@/components/model/model-form"
 
 export default async function ModelFormPage() {
-    const vendors = await getData();
-
     return (
         <div className="space-y-6">
             <div>
@@ -23,7 +11,7 @@ export default async function ModelFormPage() {
                 </p>
             </div>
             <Separator />
-            <ModelForm vendors={vendors} />
+            <ModelForm />
         </div>
     )
 }
