@@ -4,14 +4,14 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
 
-    const vendors = await prisma.vendor.findMany({
+    const models = await prisma.model.findMany({
         where: { status: 1 },
         include: {
-            _count: {
-                select: { models: true },
+            vendor: {
+                select: { name: true },
             },
         },
     });
 
-    return Response.json({ vendors })
+    return Response.json(models)
 }
