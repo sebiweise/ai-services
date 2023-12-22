@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator"
-import { VendorForm } from "./vendor-form"
+import { VendorForm } from "@/components/vendor/vendor-form"
 
 export default function VendorFormPage() {
     return (

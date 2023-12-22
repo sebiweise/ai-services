@@ -1,7 +1,8 @@
-import { Model } from "@prisma/client";
+import { Model, PrismaClient } from "@prisma/client";
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
-import prisma from '@/lib/prisma';
+
+const prisma = new PrismaClient()
 
 async function getData(): Promise<Model[]> {
     const models = await prisma.model.findMany({
