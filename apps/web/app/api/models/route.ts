@@ -5,15 +5,17 @@ export async function GET(request: Request) {
     const vendor = searchParams.get('vendor')
 
     const models = await prisma.model.findMany({
-        where: { status: 1 },
+        where: {
+            status: 1,
+            ...(vendor && {
+                vendor: {
+                    name: vendor
+                }
+            }),
+        },
         include: {
             vendor: {
                 select: { name: true },
-                ...(vendor && {
-                    where: {
-                        name: vendor
-                    }
-                }),
             },
         },
     });

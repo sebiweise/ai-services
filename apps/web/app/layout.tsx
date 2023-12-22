@@ -1,4 +1,4 @@
-import { ClerkProvider, SignIn, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { ClerkProvider, SignedIn, UserButton } from '@clerk/nextjs'
 
 import type { Metadata } from 'next'
 import "@/styles/globals.css"
@@ -43,9 +43,6 @@ export default function RootLayout({
                   <Search />
                   <UserButton afterSignOutUrl="/" />
                 </SignedIn>
-                <SignedOut>
-                  <SignIn />
-                </SignedOut>
               </div>
             </div>
           </div>
