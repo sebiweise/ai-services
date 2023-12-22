@@ -12,15 +12,17 @@ datasource db {
 }
 
 model Model {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-  params    Json?
-  type      String   @default("text")
-  status    Int      @default(0)
-  vendor    Vendor?  @relation(fields: [vendorId], references: [id])
-  vendorId  Int?
+  id          Int      @id @default(autoincrement())
+  name        String
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @updatedAt @map(name: "updated_at")
+  params      Json?
+  type        String   @default("text")
+  description String?
+  strengths   String?
+  status      Int      @default(0)
+  vendor      Vendor?  @relation(fields: [vendorId], references: [id])
+  vendorId    Int?
 
   @@index([vendorId])
 }
