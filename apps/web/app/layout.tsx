@@ -5,6 +5,7 @@ import "@/styles/globals.css"
 import { Inter } from "next/font/google"
 
 import { Analytics } from '@vercel/analytics/react';
+import { AxiomWebVitals } from 'next-axiom';
 
 import { Toaster } from "@/components/ui/toaster"
 
@@ -52,6 +53,7 @@ export default function RootLayout({
 
           <Toaster />
           <Analytics />
+          <AxiomWebVitals />
         </body>
       </html>
     </ClerkProvider>
