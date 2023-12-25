@@ -1,10 +1,11 @@
-import { ClerkProvider, SignIn, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { ClerkProvider, SignedIn, UserButton } from '@clerk/nextjs'
 
 import type { Metadata } from 'next'
 import "@/styles/globals.css"
 import { Inter } from "next/font/google"
 
 import { Analytics } from '@vercel/analytics/react';
+import { AxiomWebVitals } from 'next-axiom';
 
 import { Toaster } from "@/components/ui/toaster"
 
@@ -43,9 +44,6 @@ export default function RootLayout({
                   <Search />
                   <UserButton afterSignOutUrl="/" />
                 </SignedIn>
-                <SignedOut>
-                  <SignIn />
-                </SignedOut>
               </div>
             </div>
           </div>
@@ -55,6 +53,7 @@ export default function RootLayout({
 
           <Toaster />
           <Analytics />
+          <AxiomWebVitals />
         </body>
       </html>
     </ClerkProvider>
