@@ -153,6 +153,7 @@ export async function POST(request: Request) {
       data: images.map((sample: string) => ({
         workflowId: workflowId,
         uri: sample,
+        userId: userId
       }))
     }).catch(e => {
       console.error({ e });
