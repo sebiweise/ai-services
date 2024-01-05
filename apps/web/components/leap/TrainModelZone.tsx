@@ -115,7 +115,7 @@ export default function TrainModelZone() {
       for (const file of files) {
         const blob = await upload(file.name, file, {
           access: "public",
-          handleUploadUrl: "/leap/train-model/image-upload",
+          handleUploadUrl: "/api/leap/train-model/image-upload",
         });
         blobUrls.push(blob.url);
       }
@@ -130,7 +130,7 @@ export default function TrainModelZone() {
     };
 
     // Send the JSON payload to the "/leap/train-model" endpoint
-    const response = await fetch("/leap/train-model", {
+    const response = await fetch("/api/leap/train-model", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
