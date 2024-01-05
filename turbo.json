@@ -4,7 +4,13 @@
     "NODE_ENV",
     "DATABASE_URL",
     "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    "CLERK_SECRET_KEY"
+    "CLERK_SECRET_KEY",
+    "LEAP_API_KEY",
+    "LEAP_WEBHOOK_SECRET",
+    "LEAP_WORKFLOW_ID",
+    "VERCEL_URL",
+    "NEXT_PUBLIC_STRIPE_IS_ENABLED",
+    "RESEND_API_KEY"
   ],
   "globalDependencies": [
     "**/.env.*local"
