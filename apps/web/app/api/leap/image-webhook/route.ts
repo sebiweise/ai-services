@@ -79,19 +79,16 @@ export async function POST(request: Request) {
   try {
     const images = result.images as LeapWebhookImage[];
 
-    await Promise.all(
-      images.map(async (image) => {
-        await prisma.image.create({
-          data: {
-            workflowId: Number(model_db_id),
-            uri: image.uri,
-            ownerId: userId
-          }
-        }).catch(e => {
-          console.error({ e });
-        })
-      })
-    );
+    await prisma.image.createMany({
+      data: images.map((image) => ({
+        workflowId: Number(model_db_id),
+        uri: image.uri,
+        ownerId: userId
+      }))
+    }).catch(e => {
+      console.error({ e });
+    })
+
     return NextResponse.json(
       {
         message: "success",
