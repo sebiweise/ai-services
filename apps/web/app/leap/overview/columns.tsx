@@ -90,15 +90,19 @@ export const columns: ColumnDef<Workflow>[] = [
             const samples: Sample[] = row.getValue("samples")
 
             return <div className="flex gap-2 flex-shrink-0 items-center">
-                {samples.slice(0, 3).map((sample) => (
-                    <Avatar key={sample.id.toString()}>
-                        <AvatarImage src={sample.uri} className="object-cover" />
-                    </Avatar>
-                ))}
-                {samples.length > 3 && (
-                    <Badge className="rounded-full h-10" variant={"outline"}>
-                        +{samples.length - 3}
-                    </Badge>
+                {samples && samples.length > 0 && (
+                    <>
+                        {samples.slice(0, 3).map((sample) => (
+                            <Avatar key={sample.id.toString()}>
+                                <AvatarImage src={sample.uri} className="object-cover" />
+                            </Avatar>
+                        ))}
+                        {samples.length > 3 && (
+                            <Badge className="rounded-full h-10" variant={"outline"}>
+                                +{samples.length - 3}
+                            </Badge>
+                        )}
+                    </>
                 )}
             </div>
         },
