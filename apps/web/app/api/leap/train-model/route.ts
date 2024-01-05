@@ -11,10 +11,6 @@ const webhookUrl = `https://${process.env.VERCEL_URL}/api/leap/train-webhook`;
 const leapWebhookSecret = process.env.LEAP_WEBHOOK_SECRET;
 const stripeIsConfigured = process.env.NEXT_PUBLIC_STRIPE_IS_ENABLED === "true";
 
-if (!leapWebhookSecret) {
-  throw new Error("MISSING LEAP_WEBHOOK_SECRET!");
-}
-
 const prisma = new PrismaClient()
 
 export async function POST(request: Request) {

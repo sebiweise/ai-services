@@ -29,6 +29,12 @@ export function MainNav({
             >
                 Models
             </Link>
+            <Link
+                href="/leap/overview"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            >
+                Leap AI
+            </Link>
         </nav>
     )
 }

@@ -11,16 +11,6 @@ const leapApiKey = process.env.LEAP_API_KEY;
 const leapWebhookSecret = process.env.LEAP_WEBHOOK_SECRET;
 const stripeIsConfigured = process.env.NEXT_PUBLIC_STRIPE_IS_ENABLED === "true";
 
-if (!resendApiKey) {
-  console.warn(
-    "We detected that the RESEND_API_KEY is missing from your environment variables. The app should still work but email notifications will not be sent. Please add your RESEND_API_KEY to your environment variables if you want to enable email notifications."
-  );
-}
-
-if (!leapWebhookSecret) {
-  throw new Error("MISSING LEAP_WEBHOOK_SECRET!");
-}
-
 const prisma = new PrismaClient()
 
 export async function POST(request: Request) {
