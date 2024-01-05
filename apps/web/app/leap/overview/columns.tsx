@@ -60,7 +60,9 @@ export const columns: ColumnDef<Workflow>[] = [
     },
     {
         accessorKey: "status",
-        header: () => <div className="text-right">Status</div>,
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Status" />
+        ),
         cell: ({ row }) => {
             const status: string = row.getValue("status")
 
@@ -84,8 +86,10 @@ export const columns: ColumnDef<Workflow>[] = [
         ),
     },
     {
-        accessorKey: "status",
-        header: () => <div className="text-right">Status</div>,
+        accessorKey: "samples",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Samples" />
+        ),
         cell: ({ row }) => {
             const samples: Sample[] = row.getValue("samples")
 
@@ -111,43 +115,23 @@ export const columns: ColumnDef<Workflow>[] = [
         id: "actions",
         cell: () => {
             return (
-                <Dialog>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
-                                <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <SignedIn>
-                                <DropdownMenuSeparator />
-                                <DialogTrigger asChild>
-                                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                                </DialogTrigger>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
-                            </SignedIn>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <SignedIn>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>View model</DropdownMenuItem>
-                            <DropdownMenuItem>View vendor</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DialogContent className="sm:max-w-[425px]">
-                        <DialogHeader>
-                            <DialogTitle>Edit model</DialogTitle>
-                            <DialogDescription>
-                                Make changes to the model here. Click save when you're done.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                            <ModelForm />
-                        </div>
-                        <DialogFooter>
-                            <Button type="submit">Save changes</Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
+                            <DropdownMenuItem>Delete</DropdownMenuItem>
+                        </SignedIn>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>View workflow</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             )
         },
     },
