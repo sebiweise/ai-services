@@ -66,7 +66,7 @@ export async function POST(request: Request) {
       await prisma.balance.create({
         data: {
           credits: 0,
-          userId: userId
+          ownerId: userId
         }
       }).catch(e => {
         console.error({ e });
