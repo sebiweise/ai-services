@@ -1,4 +1,4 @@
-import { ClerkProvider, SignedIn, UserButton } from '@clerk/nextjs'
+import { ClerkProvider, OrganizationSwitcher, SignedIn, UserButton } from '@clerk/nextjs'
 
 import type { Metadata } from 'next'
 import "@/styles/globals.css"
@@ -42,6 +42,7 @@ export default function RootLayout({
               <div className="ml-auto flex items-center space-x-4">
                 <SignedIn>
                   <Search />
+                  <OrganizationSwitcher />
                   <UserButton afterSignOutUrl="/" />
                 </SignedIn>
               </div>
