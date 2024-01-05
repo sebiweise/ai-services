@@ -115,7 +115,7 @@ export async function POST(request: Request) {
         data: allImages.map((image) => ({
           workflowId: Number(workflowId),
           uri: image,
-          userId: user.id
+          ownerId: user.id
         }))
       }).catch(e => {
         console.error({ e });
@@ -154,7 +154,7 @@ export async function POST(request: Request) {
         // Refund the user.
         const balance = await prisma.balance.findUnique({
           where: {
-            userId: user.id
+            ownerId: user.id
           }
         }).catch(e => {
           console.error({ e });
@@ -165,7 +165,7 @@ export async function POST(request: Request) {
         const addCredit = credits + 1;
         await prisma.balance.update({
           where: {
-            userId: user.id,
+            ownerId: user.id,
           },
           data: {
             credits: addCredit,

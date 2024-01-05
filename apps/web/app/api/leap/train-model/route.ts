@@ -55,7 +55,7 @@ export async function POST(request: Request) {
   if (stripeIsConfigured) {
     const balance = await prisma.balance.findUnique({
       where: {
-        userId: userId
+        ownerId: userId
       }
     }).catch(e => {
       console.error({ e });
@@ -135,7 +135,7 @@ export async function POST(request: Request) {
     const data = await prisma.workflow.create({
       data: {
         workflowRunId: workflowResponse.id,
-        userId: userId,
+        ownerId: userId,
         name,
         type,
       },
@@ -153,7 +153,7 @@ export async function POST(request: Request) {
       data: images.map((sample: string) => ({
         workflowId: workflowId,
         uri: sample,
-        userId: userId
+        ownerId: userId
       }))
     }).catch(e => {
       console.error({ e });
@@ -164,7 +164,7 @@ export async function POST(request: Request) {
 
       await prisma.balance.update({
         where: {
-          userId: userId,
+          ownerId: userId,
         },
         data: {
           credits: subtractedCredits,

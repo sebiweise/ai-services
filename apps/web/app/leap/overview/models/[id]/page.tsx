@@ -21,7 +21,7 @@ export default async function Index({ params }: { params: { id: string } }) {
   const workflow = await prisma.workflow.findUnique({
     where: {
       id: Number(params.id),
-      userId: user?.id
+      ownerId: user?.id
     },
     include: {
       images: true,

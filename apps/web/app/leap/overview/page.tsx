@@ -11,7 +11,7 @@ const prisma = new PrismaClient()
 async function getData(userId: string): Promise<Workflow[]> {
     const workflows = await prisma.workflow.findMany({
         where: {
-            userId: userId
+            ownerId: userId
         },
         include: {
             samples: true,

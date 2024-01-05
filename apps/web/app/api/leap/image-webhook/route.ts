@@ -85,7 +85,7 @@ export async function POST(request: Request) {
           data: {
             workflowId: Number(model_db_id),
             uri: image.uri,
-            userId: userId
+            ownerId: userId
           }
         }).catch(e => {
           console.error({ e });
