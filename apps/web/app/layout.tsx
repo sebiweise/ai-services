@@ -2,7 +2,7 @@ import { ClerkProvider, OrganizationSwitcher, SignedIn, UserButton } from '@cler
 
 import type { Metadata } from 'next'
 import "@/styles/globals.css"
-import { Inter } from "next/font/google"
+import { Inter as FontSans } from "next/font/google"
 
 import { Analytics } from '@vercel/analytics/react';
 import { AxiomWebVitals } from 'next-axiom';
@@ -12,8 +12,10 @@ import { Toaster } from "@/components/ui/toaster"
 import { cn } from "@/lib/utils"
 import { MainNav } from '@/components/main-nav';
 import { Search } from '@/components/search';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeModeToggle } from '@/components/theme-mode-toggle';
 
-const inter = Inter({
+export const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
@@ -30,31 +32,39 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
-            inter.variable
+            fontSans.variable
           )}>
-          <div className="border-b">
-            <div className="flex h-16 items-center px-4">
-              <MainNav className="mx-6" />
-              <div className="ml-auto flex items-center space-x-4">
-                <SignedIn>
-                  <Search />
-                  <OrganizationSwitcher />
-                  <UserButton afterSignOutUrl="/" />
-                </SignedIn>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="border-b">
+              <div className="flex h-16 items-center px-4">
+                <MainNav className="mx-6" />
+                <div className="ml-auto flex items-center space-x-4">
+                  <ThemeModeToggle />
+                  <SignedIn>
+                    <Search />
+                    <OrganizationSwitcher />
+                    <UserButton afterSignOutUrl="/" />
+                  </SignedIn>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex-1 space-y-4 p-8 pt-6">
-            {children}
-          </div>
+            <div className="flex-1 space-y-4 p-8 pt-6">
+              {children}
+            </div>
 
-          <Toaster />
-          <Analytics />
-          <AxiomWebVitals />
+            <Toaster />
+            <Analytics />
+            <AxiomWebVitals />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
