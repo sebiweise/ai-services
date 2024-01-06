@@ -1,4 +1,4 @@
-import { ClerkProvider, OrganizationSwitcher, SignedIn, UserButton } from '@clerk/nextjs'
+import { OrganizationSwitcher, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 import type { Metadata } from 'next'
 import "@/styles/globals.css"
@@ -12,8 +12,10 @@ import { Toaster } from "@/components/ui/toaster"
 import { cn } from "@/lib/utils"
 import { MainNav } from '@/components/main-nav';
 import { Search } from '@/components/search';
-import { ThemeProvider } from '@/components/theme-provider';
 import { ThemeModeToggle } from '@/components/theme-mode-toggle';
+import { Providers } from './providers';
+import { CommandMenu } from '@/components/shared/command-menu';
+import SignInButton from '@/components/auth/sign-in-button';
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,42 +33,39 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
-          )}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <div className="border-b">
-              <div className="flex h-16 items-center px-4">
-                <MainNav className="mx-6" />
-                <div className="ml-auto flex items-center space-x-4">
-                  <ThemeModeToggle />
-                  <SignedIn>
-                    <Search />
-                    <OrganizationSwitcher />
-                    <UserButton afterSignOutUrl="/" />
-                  </SignedIn>
-                </div>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}>
+        <Providers>
+          <div className="border-b">
+            <div className="flex h-16 items-center px-4">
+              <MainNav className="mx-6" />
+              <div className="ml-auto flex items-center space-x-4">
+                <ThemeModeToggle />
+                <SignedIn>
+                  <Search />
+                  <OrganizationSwitcher />
+                  <UserButton afterSignOutUrl="/" />
+                </SignedIn>
+                <SignedOut>
+                  <SignInButton />
+                </SignedOut>
               </div>
             </div>
-            <div className="flex-1 space-y-4 p-8 pt-6">
-              {children}
-            </div>
+          </div>
+          <div className="flex-1 space-y-4 p-8 pt-6">
+            {children}
+          </div>
 
-            <Toaster />
-            <Analytics />
-            <AxiomWebVitals />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+          <CommandMenu />
+          <Toaster />
+          <Analytics />
+          <AxiomWebVitals />
+        </Providers>
+      </body>
+    </html>
   )
 }
