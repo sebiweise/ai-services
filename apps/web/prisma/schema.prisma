@@ -24,6 +24,7 @@ model Model {
   vendor      Vendor?  @relation(fields: [vendorId], references: [id])
   vendorId    Int?
 
+  @@unique([name, vendorId])
   @@index([vendorId])
 }
 
