@@ -12,7 +12,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.29.1",
     "@clerk/themes": "^1.7.9",
-    "@hookform/resolvers": "^3.3.3",
+    "@hookform/resolvers": "^3.3.4",
     "@leap-ai/workflows": "^1.0.1",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-checkbox": "^1.0.4",
