@@ -61,7 +61,6 @@ export function VendorForm() {
             toast({
                 variant: "destructive",
                 title: "Error while submitting new model",
-                description: JSON.stringify(error),
             })
         }
     }
