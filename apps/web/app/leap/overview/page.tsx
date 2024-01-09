@@ -1,12 +1,11 @@
-import { PrismaClient, Workflow } from "@prisma/client";
+import { Workflow } from "@prisma/client";
+import prisma from '@/lib/prisma';
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
 import { currentUser } from '@clerk/nextjs';
 import { FaImages } from "react-icons/fa";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
-const prisma = new PrismaClient()
 
 async function getData(userId: string): Promise<Workflow[]> {
     const workflows = await prisma.workflow.findMany({

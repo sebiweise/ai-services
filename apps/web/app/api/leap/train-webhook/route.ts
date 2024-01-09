@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '@/lib/prisma';
 import { NextResponse } from "next/server";
 import { currentUser } from '@clerk/nextjs';
 import { Resend } from "resend";
@@ -10,8 +10,6 @@ const leapApiKey = process.env.LEAP_API_KEY;
 // For local development, recommend using an Ngrok tunnel for the domain
 const leapWebhookSecret = process.env.LEAP_WEBHOOK_SECRET;
 const stripeIsConfigured = process.env.NEXT_PUBLIC_STRIPE_IS_ENABLED === "true";
-
-const prisma = new PrismaClient()
 
 export async function POST(request: Request) {
   const user = await currentUser();

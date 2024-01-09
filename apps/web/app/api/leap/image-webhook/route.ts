@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '@/lib/prisma';
 import { LeapWebhookImage } from "@/types/leap";
 import { NextResponse } from "next/server";
 import { auth } from '@clerk/nextjs';
@@ -7,8 +7,6 @@ export const dynamic = "force-dynamic";
 
 const leapApiKey = process.env.LEAP_API_KEY;
 const leapWebhookSecret = process.env.LEAP_WEBHOOK_SECRET;
-
-const prisma = new PrismaClient()
 
 export async function POST(request: Request) {
   const { userId } = auth();

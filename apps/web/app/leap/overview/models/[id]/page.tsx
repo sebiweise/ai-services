@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '@/lib/prisma';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -8,8 +8,6 @@ import { currentUser } from '@clerk/nextjs';
 import { Icons } from "@/components/icons";
 
 export const dynamic = "force-dynamic";
-
-const prisma = new PrismaClient()
 
 export default async function Index({ params }: { params: { id: string } }) {
   const user = await currentUser();
