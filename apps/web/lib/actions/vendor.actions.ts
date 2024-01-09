@@ -34,7 +34,7 @@ export async function getVendorById(vendorId: number) {
 
 export async function getAllVendors(): Promise<Vendor[]> {
     try {
-        const categories = await prisma.vendor.findMany({
+        const vendors = await prisma.vendor.findMany({
             include: {
                 _count: {
                     select: { models: true },
@@ -42,7 +42,7 @@ export async function getAllVendors(): Promise<Vendor[]> {
             },
         });
 
-        return categories;
+        return vendors;
     } catch (error) {
         handleError(error)
         return [];
