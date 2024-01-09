@@ -60,7 +60,8 @@ export function VendorForm() {
             console.log(error);
             toast({
                 variant: "destructive",
-                title: "Error while submitting new model",
+                title: "Uh oh! Something went wrong.",
+                description: "Error while submitting new vendor.",
             })
         }
     }
