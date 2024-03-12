@@ -1,8 +1,8 @@
-import { ClerkProvider, SignedIn, UserButton } from '@clerk/nextjs'
+import { OrganizationSwitcher, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 import type { Metadata } from 'next'
 import "@/styles/globals.css"
-import { Inter } from "next/font/google"
+import { Inter as FontSans } from "next/font/google"
 
 import { Analytics } from '@vercel/analytics/react';
 import { AxiomWebVitals } from 'next-axiom';
@@ -12,8 +12,12 @@ import { Toaster } from "@/components/ui/toaster"
 import { cn } from "@/lib/utils"
 import { MainNav } from '@/components/main-nav';
 import { Search } from '@/components/search';
+import { ThemeModeToggle } from '@/components/theme-mode-toggle';
+import { Providers } from './providers';
+import { CommandMenu } from '@/components/shared/command-menu';
+import SignInButton from '@/components/auth/sign-in-button';
 
-const inter = Inter({
+export const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
@@ -29,21 +33,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            inter.variable
-          )}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}>
+        <Providers>
           <div className="border-b">
             <div className="flex h-16 items-center px-4">
               <MainNav className="mx-6" />
               <div className="ml-auto flex items-center space-x-4">
+                <ThemeModeToggle />
                 <SignedIn>
                   <Search />
+                  <OrganizationSwitcher />
                   <UserButton afterSignOutUrl="/" />
                 </SignedIn>
+                <SignedOut>
+                  <SignInButton />
+                </SignedOut>
               </div>
             </div>
           </div>
@@ -51,11 +60,12 @@ export default function RootLayout({
             {children}
           </div>
 
+          <CommandMenu />
           <Toaster />
           <Analytics />
           <AxiomWebVitals />
-        </body>
-      </html>
-    </ClerkProvider>
+        </Providers>
+      </body>
+    </html>
   )
 }

@@ -27,6 +27,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import { Vendor } from "@prisma/client"
 import { useEffect, useState } from "react"
+import { createModel } from "@/lib/actions/model.actions"
+import { useRouter } from "next/navigation"
 
 const modelFormSchema = z.object({
     name: z
@@ -49,6 +51,7 @@ const defaultValues: Partial<ModelFormValues> = {
 }
 
 export function ModelForm() {
+    const router = useRouter();
     const [vendors, setVendors] = useState<Vendor[]>([])
 
     const form = useForm<ModelFormValues>({
@@ -57,15 +60,30 @@ export function ModelForm() {
         mode: "onChange",
     })
 
-    function onSubmit(data: ModelFormValues) {
-        toast({
-            title: "You submitted the following values:",
-            description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-                </pre>
-            ),
-        })
+    async function onSubmit(data: ModelFormValues) {
+        try {
+            const newModel = await createModel({ ...data, vendorId: Number(data.vendor) })
+
+            if (newModel) {
+                toast({
+                    title: "New model submitted",
+                    description: (
+                        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                            <code className="text-white">{JSON.stringify(newModel, null, 2)}</code>
+                        </pre>
+                    ),
+                })
+                form.reset();
+                router.push(`/vendor`)
+            }
+        } catch (error) {
+            console.log(error);
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: "Error while submitting new model.",
+            })
+        }
     }
 
     useEffect(() => {

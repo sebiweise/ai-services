@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
+import { createVendor } from "@/lib/actions/vendor.actions"
+import { useRouter } from "next/navigation"
 
 const vendorFormSchema = z.object({
     name: z
@@ -31,21 +33,37 @@ type VendorFormValues = z.infer<typeof vendorFormSchema>
 const defaultValues: Partial<VendorFormValues> = {}
 
 export function VendorForm() {
+    const router = useRouter();
     const form = useForm<VendorFormValues>({
         resolver: zodResolver(vendorFormSchema),
         defaultValues,
         mode: "onChange",
     })
 
-    function onSubmit(data: VendorFormValues) {
-        toast({
-            title: "You submitted the following values:",
-            description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-                </pre>
-            ),
-        })
+    async function onSubmit(data: VendorFormValues) {
+        try {
+            const newVendor = await createVendor({ ...data })
+
+            if (newVendor) {
+                toast({
+                    title: "New vendor submitted",
+                    description: (
+                        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                            <code className="text-white">{JSON.stringify(newVendor, null, 2)}</code>
+                        </pre>
+                    ),
+                })
+                form.reset();
+                router.push(`/vendor`)
+            }
+        } catch (error) {
+            console.log(error);
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: "Error while submitting new vendor.",
+            })
+        }
     }
 
     return (
