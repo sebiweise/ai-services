@@ -18,7 +18,7 @@
     "@types/node": "^20.11.28",
     "@types/eslint": "^8.56.3",
     "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
+    "@types/react-dom": "^18.2.22",
     "eslint": "^8.57.0",
     "react": "^18.2.0",
     "typescript": "^5.3.3"
